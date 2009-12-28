@@ -25,6 +25,13 @@ This includes the following (but changed a bit)
   // add your application key and secret here;  
   var twitterclient = new node_twitteroauth.TwitterOAuth({consumerKey:"",consumerSecret:""});
 
+* Create crypto.node 
+  
+  cd test1/node-twitteroauth/node-crypto
+  node-waf configure 
+  node-waf build
+
+
 * Start the server
 
  cd test1/node-twitteroauth

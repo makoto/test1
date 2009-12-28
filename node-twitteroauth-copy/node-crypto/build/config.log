@@ -1,0 +1,43 @@
+# project  configured on Sun Dec 27 18:24:37 2009 by
+# waf 1.5.9 (abi 7, python 20601f0 on darwin)
+# using /usr/local/bin/node-waf configure
+#
+Checking for program g++,c++
+
+find program=['g++', 'c++'] paths=[] var='CXX' -> '/usr/bin/g++'
+
+Checking for program cpp
+
+find program=['cpp'] paths=[] var='CPP' -> '/usr/bin/cpp'
+
+Checking for program ar
+
+find program=['ar'] paths=[] var='AR' -> '/usr/bin/ar'
+
+Checking for program ranlib
+
+find program=['ranlib'] paths=[] var='RANLIB' -> '/usr/bin/ranlib'
+
+Checking for g++ 
+
+Checking for program gcc,cc
+
+find program=['gcc', 'cc'] paths=[] var='CC' -> '/usr/bin/gcc'
+
+Checking for gcc 
+
+Checking for node prefix 
+
+Checking for library ssl
+
+==>
+
+int main() {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: build/.conf_check_0/test.cpp -> build/.conf_check_0/testbuild/default/test_1.o
+[0m['/usr/bin/g++', '../test.cpp', '-c', '-o', 'default/test_1.o']
+[2/2] [33mcxx_link: build/.conf_check_0/testbuild/default/test_1.o -> build/.conf_check_0/testbuild/default/testprog
+[0m['/usr/bin/g++', 'default/test_1.o', '-o', '/Users/makoto/work/personal/presence/server/node-twitteroauth/node-crypto/build/.conf_check_0/testbuild/default/testprog', '-L/usr/lib', '-L/usr/local/lib', '-lssl']

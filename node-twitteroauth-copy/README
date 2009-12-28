@@ -1,0 +1,55 @@
+dependencies:
+
+node-oauth 
+
+TODO:
+
+cleanup
+tests
+
+//super ugly session
+var tsession = {};
+
+var node_twitteroauth = require('node-twitteroauth');
+	
+var oauth_token = req.uri.params["oauth_token"];
+if(oauth_token && tsession[oauth_token]){		
+	var options = {
+		oauth_token:tsession[oauth_token]["oauth_token"],
+		oauth_token_secret:tsession[oauth_token]["oauth_token_secret"]
+	};
+	var twitterclient = new node_twitteroauth.TwitterOAuth(options);
+	//we we have an oauth_token 
+	twitterclient.accessToken().addCallback(function(data){
+		//we have an accesstoken now, we do an authed request
+		var options = {
+			oauth_token: data[0][1],
+			oauth_token_secret: data[1][1],
+		};
+		var twitterclient  = new node_twitteroauth.TwitterOAuth(options);
+		twitterclient .verify().addCallback(function(data){
+			res.simpleHtml(200, "oauth "+data);
+		}).addErrback(function(err){
+			res.simpleHtml(200, "oauth "+err);
+		});
+		//twitterclient .update("sent again from oauth-authorized client").addCallback(function(data){
+		//	res.simpleHtml(200, "oauth "+data);
+		//}).addErrback(function(err){
+		//	res.simpleHtml(200, "oauth "+err);
+		//});		
+	}).addErrback(function(err){
+		res.simpleHtml(200, "oauth "+err);
+	});
+}else{    
+	//we request the token first
+	// add your application key and secret here;	
+	var twitterclient = new node_twitteroauth.TwitterOAuth({consumerKey:"",consumerSecret:""});
+	twitterclient.requestToken().addCallback(function(data){
+		tsession[data[0][1]] = {};
+		tsession[data[0][1]]["oauth_token"] = data[0][1];
+		tsession[data[0][1]]["oauth_token_secret"] = data[1][1];
+		res.simpleHtml(200,'<a href="http://twitter.com/oauth/authorize?oauth_token='+tsession[data[0][1]]["oauth_token"]+'">Login with twitter</a>');
+	}).addErrback(function(err){
+		res.simpleHtml(200, "oauth "+err);
+	});
+}
